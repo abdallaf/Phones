@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const mongoDB = 'mongodb+srv://admin:1234@cluster0-lk0ot.mongodb.net/mycars?retryWrites=true&w=majority';
+const mongoDB = 'mongodb+srv://admin:admin@cluster0-veakn.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB,{useNewUrlParser:true});
 app.use(express.static(path.join(__dirname, '../build')));
 app.use('/static', express.static(path.join(__dirname, 'build//static')));
