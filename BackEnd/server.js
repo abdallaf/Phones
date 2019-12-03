@@ -28,85 +28,52 @@ app.use(bodyParser.json())
 
 const Schema = mongoose.Schema;
 
-const movieSchema = new Schema({
-    title:String,
+const phoneSchema = new Schema({
+    brand:String,
+    model:String,
     year:String,
     poster:String
 })
 
-const MovieModel = mongoose.model('car', movieSchema);
-const HorrorMOvieMOdel = mongoose.model('horror', movieSchema);
+const PhoneModel = mongoose.model('car', phoneSchema);
+const HorrorPhoneModel = mongoose.model('horror', phoneSchema);
 
-//app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/whatever', (req, res) => {
-    res.send('whatever')
-})
-
-app.get('/name', (req, res) => {
-    console.log(req.query.lastname)
-    res.send('Welcome ' + req.query.firstname +
-        ' ' + req.query.lastname);
-})
-
-app.post('/name', (req, res) => {
-    console.log(req.body.lastname);
-    res.send('post recieved from '
-        + req.body.firstname + ' ' +
-        req.body.lastname)
-})
 
 app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 })
 
-app.get('/api/movies', (req, res) => {
+app.get('/api/phones', (req, res) => {
 
-    MovieModel.find((error, data) =>{
-        res.json({movies:data});
+    PhoneModel.find((error, data) =>{
+        res.json({phones:data});
     })
-    // const myMovies = [
-    //     {
-    //         "Title": "Avengers: Infinity War",
-    //         "Year": "2018",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-    //     },
-    //     {
-    //         "Title": "Captain America: Civil War",
-    //         "Year": "2016",
-    //         "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-    //     }
-    // ];
 
-    // res.status(200).json(
-    //     {
-    //         movies: myMovies,
-    //         message: 'Data Sent'
-    //     });
 })
 
-app.get('/api/movies/:id', (req, res)=>{
+app.get('/api/phones/:id', (req, res)=>{
     console.log(req.params.id);
 
-    MovieModel.findById(req.params.id, (error,data)=>{
+    PhoneModel.findById(req.params.id, (error,data)=>{
         res.json(data);
     })
 })
 
-app.delete('/api/movies/:id', (req, res)=>{
+app.delete('/api/phones/:id', (req, res)=>{
     console.log(req.params.id);
 
-    MovieModel.deleteOne({_id: req.params.id},
+    PhoneModel.deleteOne({_id: req.params.id},
         (error, data) =>{
             res.json(data);
         })
 })
 
-app.put('/api/movies/:id',(req,res)=>{
+app.put('/api/phones/:id',(req,res)=>{
     console.log("Edit: "+req.params.id);
     console.log(req.body);
     
-    MovieModel.findByIdAndUpdate(req.params.id,
+    PhoneModel.findByIdAndUpdate(req.params.id,
         req.body,
         {new:true},
         (error,data)=>{
@@ -114,22 +81,24 @@ app.put('/api/movies/:id',(req,res)=>{
         })
 })
 
-app.get('/api/movies/:id', (req,res)=>{
+app.get('/api/phones/:id', (req,res)=>{
     console.log("GET: "+req.params.id);
 
-    MovieModel.findById(req.params.id,(error, data)=>{
+    PhoneModel.findById(req.params.id,(error, data)=>{
         res.json(data);
     })
 })
 
-app.post('/api/movies', (req,res)=>{
+app.post('/api/phones', (req,res)=>{
     console.log('Post request Successful');
-    console.log(req.body.title);
+    console.log(req.body.brand);
+    console.log(req.body.model);
     console.log(req.body.year);
     console.log(req.body.poster);
 
-    MovieModel.create({
-        title:req.body.title, 
+    PhoneModel.create({
+        brand:req.body.brand,
+        model:req.body.model, 
         year:req.body.year, 
         poster:req.body.poster
     });
@@ -141,9 +110,5 @@ app.get('/hello/:name', (req, res) => {
     res.send('Hello ' + req.params.name)
 })
 
-// app.get('*', (req,res) =>{
-//     res.sendFile(path.join(__dirname+'/../build/index.html'));
-//     });
-    
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

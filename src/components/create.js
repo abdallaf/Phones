@@ -6,27 +6,32 @@ class Create extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {Title:'',
+    this.state = {Brand:'',
+                  Model:'',
                   Year:'',
                 Poster:'',
               Base64Image:''};
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleMovieTitleChange = this.handleMovieTitleChange.bind(this);
-    this.handleMovieYearChange = this.handleMovieYearChange.bind(this);
-    this.handleMoviePosterChange = this.handleMoviePosterChange.bind(this);
+    this.handlePhoneBrandChange = this.handlePhoneBrandChange.bind(this);
+    this.handlePhoneModelChange = this.handlePhoneModelChange.bind(this);
+    this.handlePhoneYearChange = this.handlePhoneYearChange.bind(this);
+    this.handlePhonePosterChange = this.handlePhonePosterChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
   }
   
-  handleMovieTitleChange(e){
-    this.setState({Title: e.target.value});
+  handlePhoneBrandChange(e){
+    this.setState({Brand: e.target.value});
+  }
+  handlePhoneModelChange(e){
+    this.setState({Model: e.target.value});
   }
 
-  handleMovieYearChange(e){
+  handlePhoneYearChange(e){
     this.setState({Year: e.target.value});
   }
 
-  handleMoviePosterChange(e){
+  handlePhonePosterChange(e){
     this.setState({Poster: e.target.value});
   }
 
@@ -49,22 +54,25 @@ class Create extends React.Component {
   }
 
   handleSubmit(e){
-    alert(this.state.Title+ "      " + this.state.Year 
+    alert(this.state.Brand+ "      " + this.state.Model+ "      " + 
+    this.state.Year 
     +"       "+ this.state.Poster);
     e.preventDefault();
     
     
-                const newMovie = {
-                  title: this.state.Title,
+                const newPhone = {
+                  brand: this.state.Brand,
+                  model: this.state.Model,
                   year: this.state.Year,
                   poster: this.state.Poster
                 };
-          axios.post('http://localhost:4000/api/movies',newMovie) 
+          axios.post('http://localhost:4000/api/phones',newPhone) 
           .then()
           .catch();
           
 
-          this.setState({Title:'',
+          this.setState({Brand:'', 
+                  Model:'',
                   Year:'',
                 Poster:''});    
   }
@@ -72,37 +80,46 @@ class Create extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello from Create component</h1>
+        <h1>Add Mobile Phone</h1>
         <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label>Movie Title</label>
+          <label>Phone Brand</label>
           <input
           type='text'
           className='form-control'
-          value={this.state.Title}
-          onChange={this.handleMovieTitleChange}
+          value={this.state.Brand}
+          onChange={this.handlePhoneBrandChange}
           ></input>
         </div>
         <div className='form-group'>
-          <label>Movie Year</label>
+          <label>Phone Model</label>
+          <input
+          type='text'
+          className='form-control'
+          value={this.state.Model}
+          onChange={this.handlePhoneModelChange}
+          ></input>
+        </div>
+        <div className='form-group'>
+          <label>Phone Year</label>
           <input
           type='text'
           className='form-control'
           value={this.state.Year}
-          onChange={this.handleMovieYearChange}
+          onChange={this.handlePhoneYearChange}
           ></input>
         </div>
         <div className='form-group'>
-          <label>Movie Poster Url</label>
+          <label>Phone Poster Url</label>
           <textarea
           row='3'
           className='form-control'
           value={this.state.Poster}
-          onChange={this.handleMoviePosterChange}
+          onChange={this.handlePhonePosterChange}
           ></textarea>
         </div>
         <div>
-          <label>Real Image Upload</label>
+          <label>Image Upload</label>
           <input
           type='file'
           className='form-control'
@@ -113,7 +130,7 @@ class Create extends React.Component {
         <div>
           <input
           type="submit"
-          value="Add Movie">
+          value="Add Phone">
           </input>
         </div>
         </form>
